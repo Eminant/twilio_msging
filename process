@@ -21,3 +21,37 @@ def sms_reply*():
 # We then turn the body of the text into a list and sift the verification code received out based on location in the sms.
   List_body = list(message_body)
   auth_code = ''
+  for x in List_of_text_body:
+    if x > 21 and x < 28:                                      # Grab from values of the auth code from list of text body
+      auth_code += x                                           # Creates the new string w/ those values
+    else:
+      x+=1
+    # print(auth_code)                                         # Optional if you want to check the new string of the auth code
+# If you need to fwd the number to another source/program, you can use line 31 as an example of what that would look like
+    # resp = twiml.Response()
+    # resp.message('{}'.format(auth_code))
+
+    return str(auth_code)
+
+# Example method for simple responses
+  # Respond to incoming messages w/ a simple phrase
+  # resp = MessagingResponse()
+  # msg = resp.message("We can't stop here! This is bat country.")
+
+  # To respond with a picture
+  # msg.media("https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg")
+  # return str(resp)
+
+# Response example
+def incoming_sms():
+  body = request.values.get('Body', None)                      # Get the message that was sent to the Twilio number
+  resp = MessagingResponse()                                   # Start of TwiML response
+  if body == "Hello there.":
+    resp.message("General Kenobi")
+  elif body == "It's over Anakin."
+    resp.message("I have the high ground.")
+
+  return str(resp)
+
+if __name__ == "__main__":                                    # Run the program
+  app.run(debug=True)
