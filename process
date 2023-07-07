@@ -1,0 +1,23 @@
+# Using a dedicated webhook which could respond to or pull from the incoming sms, the webhook can accept http requests from Twilio when the Twilio phone number is texted. (See line ____)
+# Use a URL that is plugged into the Twilio Console.
+
+# install the Twilio helper library
+from flask import Flask, request, redirect
+from twilio.twiml.messaging_response import MessagingResponse   # if Twilio "phone" is responding to text message
+from twilio import twiml                                        # for Twilio outbound sms
+
+app = Flask(__name__)
+
+# Using the Azure (or other url host), copy the address for the web app into your Twilio account's phone number settings located in the 'A MESSAGE COMES IN' box.
+# Note: before having on your Twilio account, add "/sms" to the end of that url.
+
+@app.route("/sms", methods=['GET', 'POST']
+
+def sms_reply*():
+  # number = request.form['From']                              # Holds the number that messaged your Twilio phone number if you want to use for various reasons (such as joining the number to a messaging group for sales)
+  message_body = request.form['Body']                          # Internal text's contents
+
+# The text contents will look like "Use verification code 999999 for Microsoft authentication."
+# We then turn the body of the text into a list and sift the verification code received out based on location in the sms.
+  List_body = list(message_body)
+  auth_code = ''
